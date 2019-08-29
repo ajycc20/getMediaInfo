@@ -1,0 +1,21 @@
+﻿<Window x:Class="getMediaInfo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:getMediaInfo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="367.6" Width="670.4" Closed="Window_Closed">
+    <Grid Margin="0,0,0,-4.6">
+        <RichTextBox x:Name="RTB_MediaInfo" HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="664" DragOver="RTB_MediaInfo_DragOver" Drop="RTB_MediaInfo_Drop" FontFamily="Consolas">
+            <FlowDocument Focusable="True" LineHeight="1">
+                <Paragraph FontFamily="Microsoft YaHei UI">
+                    <Run Text="请将视频文件拖入文本框..." FontSize="20" Foreground="#999"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="BTN_Copy" Content="复制" HorizontalAlignment="Left" Margin="349,256,0,0" VerticalAlignment="Top" Width="315" Height="87" FontSize="22" Background="WhiteSmoke" Foreground="#999" Click="BTN_Copy_Click"/>
+        <Label x:Name="Uploader" Content="Uploader:" HorizontalAlignment="Left" Margin="10,276,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#999"/>
+        <TextBox x:Name="TB_upName" HorizontalAlignment="Left" Height="38" Margin="127,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" BorderThickness="0,0,0,1" FontSize="24"/>
+    </Grid>
+</Window>
