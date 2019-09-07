@@ -59,18 +59,11 @@ namespace getMediaInfo
 
         private string releaseTime;
 
-        private string doubanUrl;
+        private string subtitleText;
+
+        private string subtitleText2;
 
         private int fileInfoCopy = 0;
-
-        private string uploaderName;
-
-        //private bool _contentLoaded;
-
-        //internal Button BTN_Copy;
-
-        //internal RichTextBox RTB_MediaInfo;
-        
 
         public MainWindow()
         {
@@ -81,44 +74,6 @@ namespace getMediaInfo
             RTB_MediaInfo.AddHandler(RichTextBox.DragOverEvent, new DragEventHandler(RTB_MediaInfo_DragOver), true);
             RTB_MediaInfo.AddHandler(RichTextBox.DropEvent, new DragEventHandler(RTB_MediaInfo_Drop), true);
         }
-
-        /*public static string HttpGet(string Url)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
-            request.Method = "GET";
-            request.ContentType = "text/html;charset=UTF-8";
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream myResponseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
-            myStreamReader.Close();
-            myResponseStream.Close();
-
-            return retString;
-        }
-
-        public static string HttpGet(string Url, string postDataStr)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url + (postDataStr == "" ? "" : "?") + postDataStr);
-            request.Method = "GET";
-            request.ContentType = "text/html;charset=UTF-8";
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream myResponseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
-            myStreamReader.Close();
-            myResponseStream.Close();
-
-            return retString;
-        }*/
-
-
-        
-
-        
-
 
         private void handleMediaInfo()
         {
@@ -155,27 +110,18 @@ namespace getMediaInfo
             audioChannel = mediaInfo.Get(StreamKind.Audio, 0, "Channel(s)/String");
             audioBitRate = mediaInfo.Get(StreamKind.Audio, 0, "BitTate/String");
             releaseTime = mediaInfo.Get(StreamKind.General, 0, "File_Created_Date_Local");
-            //releaseTime = DateTime.Now.ToString("dd/MM/yyyy");
-            //uploaderName = upName.Text;
 
-
-
-            string strRead = Environment.CurrentDirectory + "\\info.ini";
-            if (!(File.Exists(Environment.CurrentDirectory + "\\info.ini")))//判断文件是否存在，不存在则创建
-            {
-                FileStream fs = new FileStream(Environment.CurrentDirectory + "\\info.ini", FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                sw.WriteLine(TB_upName);
-                sw.Close();
-                strRead = Environment.CurrentDirectory + "\\info.ini";
-            }
-           
+            subtitleText = mediaInfo.Get(StreamKind.Text, 0, "Language/String1");
+            subtitleText2 = mediaInfo.Get(StreamKind.Text, 0, "Format");
 
         }
 
         private void showMediaInfo()
         {
-            RTB_MediaInfo.AppendText("[font=consolas][code]");
+            RTB_MediaInfo.AppendText("[IMG][/IMG]\n\n\n\n\n");
+            RTB_MediaInfo.AppendText("[IMG]https://images2.imgbox.com/04/6b/Ggp5ReQb_o.png[/IMG]\n\n");
+            RTB_MediaInfo.AppendText("[font=Courier][quote]");
+            RTB_MediaInfo.AppendText("[size=3][color=RoyalBlue][b]★★★★★ General Information ★★★★★[/b][/color][/size]\n\n");
             RTB_MediaInfo.AppendText("RELEASE.NAME...: " + fileName + "." + fileName2 + "\n");
             RTB_MediaInfo.AppendText("RELEASE.DATE...: " + releaseTime + "\n");
             RTB_MediaInfo.AppendText("RELEASE.SIZE...: " + fileSize + "\n");
@@ -194,11 +140,11 @@ namespace getMediaInfo
                 RTB_MediaInfo.AppendText("AUDIO..........: " + audioLanguage + " " + audioCodec + " " + audioChannel + "\n");
             }
             
-            RTB_MediaInfo.AppendText("SUBTITLE......: Chs\n");
-            RTB_MediaInfo.AppendText("UPLOADER......: " + uploaderName + "\n");
-            RTB_MediaInfo.AppendText("[/code][/font]");
+            RTB_MediaInfo.AppendText("SUBTITLE.......: " + subtitleText + "/" + subtitleText2 + "\n");
+            RTB_MediaInfo.AppendText("[/quote][/font]\n\n");
+            RTB_MediaInfo.AppendText("[IMG]https://images2.imgbox.com/ce/e7/KCmGFMOB_o.png[/IMG]\n\n");
+            RTB_MediaInfo.AppendText("[IMG][/IMG]");
 
-            RTB_MediaInfo.AppendText(Environment.CurrentDirectory + "\\info.ini");
         }
 
         private void RTB_MediaInfo_DragOver(object sender, DragEventArgs e)
@@ -207,7 +153,6 @@ namespace getMediaInfo
                 e.Effects = DragDropEffects.All;
             else
                 e.Effects = DragDropEffects.None;
-            //e.Handled = false;
         }
 
         private void RTB_MediaInfo_Drop(object sender, DragEventArgs e)
@@ -238,7 +183,6 @@ namespace getMediaInfo
 
         }
 
-       
     }
 }
 
